@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import com.bumptech.glide.request.RequestOptions
 import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.gpu.BrightnessFilterTransformation
-import jp.wasabeef.glide.transformations.gpu.ContrastFilterTransformation
 import jp.wasabeef.glide.transformations.gpu.KuwaharaFilterTransformation
 import jp.wasabeef.glide.transformations.gpu.PixelationFilterTransformation
 import jp.wasabeef.glide.transformations.gpu.SepiaFilterTransformation
@@ -38,11 +37,11 @@ class PremiumImageFilter : ImageFilter {
 		return RequestOptions.bitmapTransform(PixelationFilterTransformation(5f))
 	}
 
-	override fun acceptToColorizeMain(v: ImageFilterVisitor?): RequestOptions? {
+	fun acceptToColorizeMain(v: ImageFilterVisitor?): RequestOptions? {
 		return v?.visit(this)
 	}
 
-	override fun save() :Bitmap{
+	override fun save(): Bitmap {
 		return bitmap!!
 	}
 }

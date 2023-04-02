@@ -11,6 +11,5 @@ interface ImageFilter {
 	fun colorizeSketch(): RequestOptions
 	fun colorizeKuhawara(): RequestOptions
 	fun colorizePixel(): RequestOptions
-	fun acceptToColorizeMain(v: ImageFilterVisitor?): RequestOptions?
 	fun save() : Bitmap
 }

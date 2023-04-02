@@ -38,7 +38,7 @@ class BasicImageFilter : ImageFilter {
 		return RequestOptions.bitmapTransform(PixelationFilterTransformation(20f))
 	}
 
-	override fun acceptToColorizeMain(v: ImageFilterVisitor?): RequestOptions? {
+	fun acceptToColorizeMain(v: ImageFilterVisitor?): RequestOptions? {
 		return v?.visit(this)
 	}
 
