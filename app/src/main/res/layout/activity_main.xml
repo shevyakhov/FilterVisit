@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?><!--on below line we are creating a swipe to refresh layout-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	tools:context=".MainActivity">
+
+	<com.google.android.material.chip.Chip
+		android:id="@+id/isPremium"
+		style="@style/ShapeAppearanceOverlay.Material3.Chip"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:text="Премиум" />
+
+	<Button
+		android:id="@+id/save"
+		style="@style/Widget.Material3.TabLayout.Secondary"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Сохранить" />
+
+	<!--Imageview for our original image-->
+	<ImageView
+		android:id="@+id/mainImage"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_above="@id/idHSV"
+		android:layout_below="@id/isPremium"
+		android:layout_centerHorizontal="true"
+		android:layout_margin="20dp"
+		android:padding="5dp"
+		android:src="@drawable/none" />
+
+	<!--horizontal scroll view for displaying
+		all our image filters-->
+
+	<HorizontalScrollView
+		android:id="@+id/idHSV"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_marginTop="20dp"
+		android:scrollbars="none">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+
+				<LinearLayout
+					android:layout_width="150dp"
+					android:layout_height="wrap_content"
+					android:layout_margin="5dp"
+					android:orientation="vertical">
+
+					<ImageView
+						android:id="@+id/mainFilter"
+						android:layout_width="140dp"
+						android:layout_height="140dp"
+						android:layout_gravity="center"
+						android:src="@drawable/red_filter" />
+
+					<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:padding="4dp"
+						android:text="Основной фильтр"
+						android:textAlignment="center"
+						android:textColor="@color/black" />
+
+				</LinearLayout>
+
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="150dp"
+				android:layout_height="wrap_content"
+				android:layout_margin="5dp"
+				android:orientation="vertical">
+
+				<ImageView
+					android:id="@+id/blurFilter"
+					android:layout_width="140dp"
+					android:layout_height="140dp"
+					android:layout_gravity="center"
+					android:src="@drawable/blur" />
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="4dp"
+					android:text="Размытие"
+					android:textAlignment="center"
+					android:textColor="@color/black" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="150dp"
+				android:layout_height="wrap_content"
+				android:layout_margin="5dp"
+				android:orientation="vertical">
+
+				<ImageView
+					android:id="@+id/sepia"
+					android:layout_width="140dp"
+					android:layout_height="140dp"
+					android:layout_gravity="center"
+					android:src="@drawable/sepia" />
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="4dp"
+					android:text="Сепия"
+					android:textAlignment="center"
+					android:textColor="@color/black" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="150dp"
+				android:layout_height="wrap_content"
+				android:layout_margin="5dp"
+				android:orientation="vertical">
+
+				<ImageView
+					android:id="@+id/sketch"
+					android:layout_width="140dp"
+					android:layout_height="140dp"
+					android:layout_gravity="center"
+					android:src="@drawable/sketch" />
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="4dp"
+					android:text="Скетч"
+					android:textAlignment="center"
+					android:textColor="@color/black" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="150dp"
+				android:layout_height="wrap_content"
+				android:layout_margin="5dp"
+				android:orientation="vertical">
+
+				<ImageView
+					android:id="@+id/kuwahara"
+					android:layout_width="140dp"
+					android:layout_height="140dp"
+					android:layout_gravity="center"
+					android:src="@drawable/kuwahara" />
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="4dp"
+					android:text="Кувахара"
+					android:textAlignment="center"
+					android:textColor="@color/black" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="150dp"
+				android:layout_height="wrap_content"
+				android:layout_margin="5dp"
+				android:orientation="vertical">
+
+				<ImageView
+					android:id="@+id/pixel_filter"
+					android:layout_width="140dp"
+					android:layout_height="140dp"
+					android:layout_gravity="center"
+					android:src="@drawable/pixel" />
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="4dp"
+					android:text="Пикселизация"
+					android:textAlignment="center"
+					android:textColor="@color/black" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="150dp"
+				android:layout_height="wrap_content"
+				android:layout_margin="5dp"
+				android:orientation="vertical">
+
+				<ImageView
+					android:id="@+id/None"
+					android:layout_width="140dp"
+					android:layout_height="140dp"
+					android:layout_gravity="center"
+					android:src="@drawable/none_1" />
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="4dp"
+					android:text="Ничего"
+					android:textAlignment="center"
+					android:textColor="@color/black" />
+
+			</LinearLayout>
+		</LinearLayout>
+	</HorizontalScrollView>
+
+
+</RelativeLayout>
