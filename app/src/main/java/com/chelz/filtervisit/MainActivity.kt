@@ -40,6 +40,11 @@ class MainActivity : AppCompatActivity() {
 	var basicImageFilter = BasicImageFilter()
 	var premiumConfigurator = PremiumConfigurator()
 
+	/**
+	 * Лаунчер для получения фото из галереи
+	 *
+	 * При получении Uri фото преобразуем его в Bitmap и отправляем их в фильтры
+	 * */
 	private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
 		if (uri != null) {
 			val byteArray = this.contentResolver.openInputStream(uri)?.buffered()?.use { it.readBytes() }
@@ -50,18 +55,23 @@ class MainActivity : AppCompatActivity() {
 		}
 	}
 
+
 	@SuppressLint("UseCompatLoadingForDrawables")
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		binding = ActivityMainBinding.inflate(layoutInflater)
 		setContentView(binding.root)
-
+		/**
+		 * инициализируем все классы с помощью картинки заглушки
+		 * */
 		bitmap = getDrawable(R.drawable.none)?.toBitmap()!!
 		basicImageFilter.bitmap = getDrawable(R.drawable.none)?.toBitmap()!!
 		premiumImageFilter.bitmap = getDrawable(R.drawable.none)?.toBitmap()!!
 		setListeners()
 	}
-
+	/**
+	 * Инициализация слушателей нажатий
+	 * */
 	private fun setListeners() {
 		binding.save.setOnClickListener {
 			val bitmap = binding.mainImage.bitmap
@@ -103,7 +113,9 @@ class MainActivity : AppCompatActivity() {
 			kuwaharaFilter(binding.mainImage)
 		}
 	}
-
+	/**
+	 * Фильтр кувахара
+	 * */
 	private fun kuwaharaFilter(image: ImageView) {
 		initLoadingState(image)
 		val job = CoroutineScope(Dispatchers.IO).async {
@@ -114,7 +126,9 @@ class MainActivity : AppCompatActivity() {
 		}
 		awaitJobToLoad(job, image)
 	}
-
+	/**
+	 * Фильтр зарисовки
+	 * */
 	private fun sketchFilter(image: ImageView) {
 		initLoadingState(image)
 		val job = CoroutineScope(Dispatchers.IO).async {
@@ -125,7 +139,9 @@ class MainActivity : AppCompatActivity() {
 		}
 		awaitJobToLoad(job, image)
 	}
-
+	/**
+	 * Фильтр сепии
+	 * */
 	private fun sepiaFilter(image: ImageView) {
 		initLoadingState(image)
 		val job = CoroutineScope(Dispatchers.IO).async {
@@ -136,7 +152,9 @@ class MainActivity : AppCompatActivity() {
 		}
 		awaitJobToLoad(job, image)
 	}
-
+	/**
+	 * Фильтр пикселизации
+	 * */
 	private fun pixelFilter(image: ImageView) {
 		initLoadingState(image)
 		val job = CoroutineScope(Dispatchers.IO).async {
@@ -148,6 +166,9 @@ class MainActivity : AppCompatActivity() {
 		awaitJobToLoad(job, image)
 	}
 
+	/**
+	 * Фильтр размытия
+	 * */
 	private fun blurFilter(image: ImageView) {
 		initLoadingState(image)
 		val job = CoroutineScope(Dispatchers.IO).async {
@@ -159,6 +180,9 @@ class MainActivity : AppCompatActivity() {
 		awaitJobToLoad(job, image)
 	}
 
+	/**
+	 * Отсутствие фильтра
+	 * */
 	private fun noneFilter(image: ImageView) {
 		CoroutineScope(Dispatchers.Main).launch {
 			Glide.with(this@MainActivity)
@@ -166,7 +190,9 @@ class MainActivity : AppCompatActivity() {
 				.into(image)
 		}
 	}
-
+	/**
+	 * Основной фильтр
+	 * */
 	private fun mainFilter(image: ImageView) {
 		initLoadingState(image)
 		val job = CoroutineScope(Dispatchers.IO).async {
@@ -178,6 +204,9 @@ class MainActivity : AppCompatActivity() {
 		awaitJobToLoad(job as Deferred<RequestOptions>, image)
 	}
 
+	/**
+	 * Дожидаемся выполнения Job и потом запускаем изменённую картинку
+	 * */
 	private fun awaitJobToLoad(job: Deferred<RequestOptions>, image: ImageView) {
 		CoroutineScope(Dispatchers.Main).launch {
 			val bm = job.await()
@@ -188,7 +217,11 @@ class MainActivity : AppCompatActivity() {
 		}
 	}
 
-	val ImageView.bitmap: Bitmap? get() = (drawable as? BitmapDrawable)?.bitmap
+	/**
+	 * Расширяющий функционал для получения bitmap из View
+ 	 * */
+	private val ImageView.bitmap: Bitmap? get() = (drawable as? BitmapDrawable)?.bitmap
+
 	private fun initLoadingState(image: ImageView) {
 		CoroutineScope(Dispatchers.Main).launch {
 			Glide.with(applicationContext)
@@ -196,7 +229,9 @@ class MainActivity : AppCompatActivity() {
 				.into(image)
 		}
 	}
-
+	/**
+	 * диалоговое окно для проверки промокода
+	 * */
 	private fun showDialog() {
 		val builder: AlertDialog.Builder = AlertDialog.Builder(this)
 		builder.setTitle("Премиум подписка")
@@ -219,6 +254,9 @@ class MainActivity : AppCompatActivity() {
 		builder.show()
 	}
 
+	/**
+	 * Функция для сохранения фото в галерею
+	* */
 	private fun saveMediaToStorage(bitmap: Bitmap) {
 		val filename = "${System.currentTimeMillis()}.jpg"
 		var fos: OutputStream? = null
